@@ -79,15 +79,15 @@ export default defineConfig({
  webServer: [
     {
       name: 'API-Backend',
-      command: 'cd apps/api && yarn dev', // Verifique se é 'app' ou 'apps'
-      url: 'http://localhost:3333',       // Coloque a porta real da sua API aqui
+      command: 'cd ./apps/api && yarn dev', // Adicionei o ./
+      url: 'http://localhost:3001',
       reuseExistingServer: !process.env.CI,
       timeout: 120 * 1000,
     },
     {
       name: 'Front-Web',
-      command: 'cd apps/web && yarn dev', // Verifique se é 'app' ou 'apps'
-      url: 'http://localhost:8080',       // PORTA 8080 AQUI (onde o front roda)
+      command: 'cd ./apps/web && yarn dev', // Adicionei o ./
+      url: 'http://localhost:8080',
       reuseExistingServer: !process.env.CI,
       timeout: 120 * 1000,
     }
