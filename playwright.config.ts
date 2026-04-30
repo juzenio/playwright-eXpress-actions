@@ -75,21 +75,26 @@ export default defineConfig({
     // },
   ],
 
-  /* Run your local dev server before starting the tests */
- webServer: [
-  {
-    command: 'cd apps/api && yarn dev',
-    url: 'http://localhost:3001',
-    reuseExistingServer: !process.env.CI,
-    stdout: 'pipe', // ISSO VAI MOSTRAR O ERRO DA API NO LOG
-    stderr: 'pipe',
-  },
-  {
-    command: 'cd apps/web && yarn dev',
-    url: 'http://localhost:8080',
-    reuseExistingServer: !process.env.CI,
-    stdout: 'pipe', // ISSO VAI MOSTRAR O ERRO DO FRONT NO LOG
-    stderr: 'pipe',
-  }
-],
+  
+/* Run your local dev server before starting the tests */
+   webServer: [
+    {
+      name: 'API-Backend',
+      command: 'cd apps/api && yarn dev',
+      // REMOVEMOS a linha 'url' aqui para ele não ficar "preso" esperando resposta
+      reuseExistingServer: !process.env.CI,
+      stdout: 'pipe',
+      stderr: 'pipe',
+      timeout: 120 * 1000,
+    },
+    {
+      name: 'Front-Web',
+      command: 'cd apps/web && yarn dev',
+      url: 'http://127.0.0.1:8080', // O Front-web precisa da URL porque ele é o destino final
+      reuseExistingServer: !process.env.CI,
+      stdout: 'pipe',
+      stderr: 'pipe',
+      timeout: 120 * 1000,
+    }
+  ],
 });
