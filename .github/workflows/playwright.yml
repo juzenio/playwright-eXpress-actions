@@ -17,8 +17,10 @@ jobs:
         node-version: lts/*
 
     - name: Install dependencies
-      # Se você usa npm, mude para: npm ci
-      run: yarn install 
+      run: |
+        yarn install
+        cd apps/api && yarn install
+        cd apps/web && yarn install
 
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
