@@ -16,26 +16,15 @@ jobs:
       with:
         node-version: lts/*
 
-    # 1. Instala as dependências da raiz (onde está o Playwright)
-    - name: Install Root dependencies
+    - name: Install dependencies
+      # Se você usa npm, mude para: npm ci
       run: yarn install 
-
-    # 2. IMPORTANTE: Instala as dependências da API
-    - name: Install API dependencies
-      run: cd apps/api && yarn install
-
-    # 3. IMPORTANTE: Instala as dependências do Web
-    - name: Install Web dependencies
-      run: cd apps/web && yarn install
 
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
 
-    # DEBUG: Adicione isso se o erro de "cd" continuar para vermos o que o robô vê
-    - name: List files for debug
-      run: ls -R
-
     - name: Run Playwright tests
+      # Aqui ele vai rodar seus testes Web e Mobile conforme configuramos no seu config
       run: npx playwright test
 
     - uses: actions/upload-artifact@v4
