@@ -34,7 +34,17 @@ jobs:
     - name: Run Playwright tests
       run: npx playwright test
 
-    - uses: actions/upload-artifact@v4
+    - name: 📊 Generate Test Summary
+      uses: mikepenz/action-junit-report@v4
+      if: always() # Roda sempre, independente de erro ou sucesso
+      with:
+          report_paths: 'results.xml'    # O arquivo gerado pelo config do Playwright
+          detailed_summary: true         # Cria a tabela detalhada que você viu
+          include_passed: true           # Mostra os testes que passaram também
+          check_name: 'Relatório Técnico E2E' 
+
+    - name: Upload Playwright Report
+      uses: actions/upload-artifact@v4
       if: always()
       with:
         name: playwright-report
